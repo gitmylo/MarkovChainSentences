@@ -1,0 +1,6 @@
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\bin\Debug\MarkovChainSentences.exe
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\bin\Debug\MarkovChainSentences.pdb
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.csproj.AssemblyReference.cache
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.csproj.CoreCompileInputs.cache
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.exe
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.pdb
