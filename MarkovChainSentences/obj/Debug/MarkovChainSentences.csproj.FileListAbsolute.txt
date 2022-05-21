@@ -4,3 +4,6 @@ C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug
 C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.csproj.CoreCompileInputs.cache
 C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.exe
 C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.pdb
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\bin\Debug\Newtonsoft.Json.dll
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\bin\Debug\Newtonsoft.Json.xml
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.csproj.CopyComplete
