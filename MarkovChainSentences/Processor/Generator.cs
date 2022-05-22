@@ -10,7 +10,8 @@ namespace MarkovChainSentences.Processor
         {
             Random r = new Random();
             string generated = inData.startWord;
-            string word = inData.startWord;
+            var splitList = inData.startWord.Split(' ');
+            string word = splitList[splitList.Length-1];
             while (word != inData.endWord)
             {
                 var stringBias = StringBias(inData, word);
@@ -23,13 +24,22 @@ namespace MarkovChainSentences.Processor
         public static List<string> StringBias(ProcessResults inData, string word)
         {
             List<string> results = new List<string>();
-            foreach (var step in inData.GetLinkFromWord(word).possibleSteps)
+            WordLink link = inData.GetLinkFromWord(word);
+            if (link != null)
             {
-                for (int i = 0; i < step.chance; i++)
+                foreach (var step in link.possibleSteps)
                 {
-                    results.Add(step.word);
+                    for (int i = 0; i < step.chance; i++)
+                    {
+                        results.Add(step.word);
+                    }
                 }
             }
+            else
+            {
+                results.Add(inData.endWord);
+            }
+            
             return results;
         }
     }

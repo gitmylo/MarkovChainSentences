@@ -19,12 +19,22 @@ namespace MarkovChainSentences
 
         private void button3_Click(object sender, EventArgs e)
         {
-            OutputBox.Text = Processor.Generator.Generate(JsonConvert.DeserializeObject<ProcessResults>(InputBox.Text));
+            var results = JsonConvert.DeserializeObject<ProcessResults>(InputBox.Text);
+            if (CustomStart.Text != "" && results != null)
+            {
+                results.startWord = CustomStart.Text;
+            }
+            OutputBox.Text = Processor.Generator.Generate(results);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OutputBox.Text = Processor.Generator.Generate(Processor.Processor.Process(InputBox.Text));
+            var results = Processor.Processor.Process(InputBox.Text);
+            if (CustomStart.Text != "" && results != null)
+            {
+                results.startWord = CustomStart.Text;
+            }
+            OutputBox.Text = Processor.Generator.Generate(results);
         }
     }
 }
