@@ -15,7 +15,7 @@ namespace MarkovChainSentences.Processor
             foreach (var s in split)
             {
                 if (s == last) continue; // no support for that right now
-                results.GetLinkFromWordAndCreate(last).incrementStep(s);
+                results.GetLinkFromWordAndCreate(last.ToLower()).incrementStep(s);
                 last = s;
             }
             results.endWord = last;

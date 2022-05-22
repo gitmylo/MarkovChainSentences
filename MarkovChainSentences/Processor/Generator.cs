@@ -24,7 +24,7 @@ namespace MarkovChainSentences.Processor
         public static List<string> StringBias(ProcessResults inData, string word)
         {
             List<string> results = new List<string>();
-            WordLink link = inData.GetLinkFromWord(word);
+            WordLink link = inData.GetLinkFromWord(word.ToLower());
             if (link != null)
             {
                 foreach (var step in link.possibleSteps)
