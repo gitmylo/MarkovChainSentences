@@ -7,3 +7,6 @@ C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug
 C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\bin\Debug\Newtonsoft.Json.dll
 C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\bin\Debug\Newtonsoft.Json.xml
 C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.csproj.CopyComplete
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.csproj.ResolveComReference.cache
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.Gui.resources
+C:\Users\milan\RiderProjects\MarkovChainSentences\MarkovChainSentences\obj\Debug\MarkovChainSentences.csproj.GenerateResource.cache

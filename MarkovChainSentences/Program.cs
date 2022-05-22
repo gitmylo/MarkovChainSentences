@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using MarkovChainSentences.Data;
 using MarkovChainSentences.Extensions;
 using MarkovChainSentences.Processor;
@@ -12,44 +13,56 @@ namespace MarkovChainSentences
     {
         public static void Main(string[] args)
         {
-            Setup();
-            string[] inFiles = stripPath(Directory.GetFiles(@"data\in"));
-            string[] procFiles = stripPath(Directory.GetFiles(@"data\processed"));
-            string[] outFiles = stripPath(Directory.GetFiles(@"data\out"));
-            string[] notYetProc = inFiles.Except(procFiles).Where(i => i != null).ToArray();
-            string[] outCheck = procFiles.combine(notYetProc).Distinct().Where(i => i != null).ToArray();
-            string[] notYetOutPutted = outCheck.Except(outFiles).Where(i => i != null).ToArray();
+            if (args.Length > 0 && args[0].ToLower().Equals("gui"))
+            {
+                Gui gui = new Gui();
+                new Thread(() =>
+                {
+                    gui.ShowDialog();
+                }).Start();
+                while (gui.Visible) Console.ReadLine(); // wait until gui is closed before exiting
+            }
+            else
+            {
+                Setup();
+                string[] inFiles = stripPath(Directory.GetFiles(@"data\in"));
+                string[] procFiles = stripPath(Directory.GetFiles(@"data\processed"));
+                string[] outFiles = stripPath(Directory.GetFiles(@"data\out"));
+                string[] notYetProc = inFiles.Except(procFiles).Where(i => i != null).ToArray();
+                string[] outCheck = procFiles.combine(notYetProc).Distinct().Where(i => i != null).ToArray();
+                string[] notYetOutPutted = outCheck.Except(outFiles).Where(i => i != null).ToArray();
 
-            Console.WriteLine("Starting processing...");
-            foreach (var p in notYetProc)
-            {
-                var path = $@"data\in\{p}";
-                var outPath = $@"data\processed\{p}";
-                Console.WriteLine($"Now processing {p}");
-                if (!File.Exists(path))
+                Console.WriteLine("Starting processing...");
+                foreach (var p in notYetProc)
                 {
-                    Console.WriteLine("Failed, file does not exist!");
-                    continue;
+                    var path = $@"data\in\{p}";
+                    var outPath = $@"data\processed\{p}";
+                    Console.WriteLine($"Now processing {p}");
+                    if (!File.Exists(path))
+                    {
+                        Console.WriteLine("Failed, file does not exist!");
+                        continue;
+                    }
+                    var results = Processor.Processor.Process(File.ReadAllText(path));
+                    File.WriteAllText(outPath, JsonConvert.SerializeObject(results));
                 }
-                var results = Processor.Processor.Process(File.ReadAllText(path));
-                File.WriteAllText(outPath, JsonConvert.SerializeObject(results));
-            }
-            Console.WriteLine("Done processing, now generating!");
-            foreach (var p in notYetOutPutted)
-            {
-                var path = $@"data\processed\{p}";
-                var outPath = $@"data\out\{p}";
-                Console.WriteLine($"Now generating {p}");
-                if (!File.Exists(path))
+                Console.WriteLine("Done processing, now generating!");
+                foreach (var p in notYetOutPutted)
                 {
-                    Console.WriteLine("Failed, file does not exist!");
-                    continue;
+                    var path = $@"data\processed\{p}";
+                    var outPath = $@"data\out\{p}";
+                    Console.WriteLine($"Now generating {p}");
+                    if (!File.Exists(path))
+                    {
+                        Console.WriteLine("Failed, file does not exist!");
+                        continue;
+                    }
+                    var data = JsonConvert.DeserializeObject<ProcessResults>(File.ReadAllText(path));
+                    File.WriteAllText(outPath, Generator.Generate(data));
                 }
-                var data = JsonConvert.DeserializeObject<ProcessResults>(File.ReadAllText(path));
-                File.WriteAllText(outPath, Generator.Generate(data));
+                Console.WriteLine("Done generating! Press enter to exit");
+                Console.ReadLine();
             }
-            Console.WriteLine("Done generating! Press enter to exit");
-            Console.ReadLine();
         }
 
         public static void Setup()

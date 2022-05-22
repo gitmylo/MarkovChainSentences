@@ -40,12 +40,20 @@
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
+        <Reference Include="System.Drawing" />
+        <Reference Include="System.Windows.Forms" />
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Data\ProcessResults.cs" />
         <Compile Include="Data\WordChance.cs" />
         <Compile Include="Extensions\ListExtensions.cs" />
+        <Compile Include="Gui.cs">
+          <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="Gui.Designer.cs">
+          <DependentUpon>Gui.cs</DependentUpon>
+        </Compile>
         <Compile Include="Processor\Generator.cs" />
         <Compile Include="Processor\Processor.cs" />
         <Compile Include="Program.cs" />
@@ -53,6 +61,22 @@
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <COMReference Include="System_Windows_Forms">
+        <Guid>{215D64D2-031C-33C7-96E3-61794CD1EE61}</Guid>
+        <VersionMajor>2</VersionMajor>
+        <VersionMinor>4</VersionMinor>
+        <Lcid>0</Lcid>
+        <WrapperTool>tlbimp</WrapperTool>
+        <Isolated>False</Isolated>
+        <EmbedInteropTypes>True</EmbedInteropTypes>
+      </COMReference>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="Gui.resx">
+        <DependentUpon>Gui.cs</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
