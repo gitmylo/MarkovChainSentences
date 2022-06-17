@@ -8,15 +8,15 @@ namespace MarkovChainSentences.Data
     [Serializable]
     public class WordChance
     {
-        [JsonProperty] public long word;
-        [JsonProperty] public long chance = 0; // incremented by one every time this sequence is detected
+        [JsonProperty("W")] public long word;
+        [JsonProperty("C")] public long chance = 0; // incremented by one every time this sequence is detected
     }
 
     [Serializable]
     public class WordLink
     {
-        [JsonProperty] public long source;
-        [JsonProperty] public List<WordChance> possibleSteps;
+        [JsonProperty("S")] public long source;
+        [JsonProperty("PosSteps")] public List<WordChance> possibleSteps;
         public void incrementStep(long nextWord)
         {
             possibleSteps ??= new List<WordChance>();
@@ -44,7 +44,7 @@ namespace MarkovChainSentences.Data
             this.token = newest++;
         }
         public static long newest = 1;
-        [JsonProperty] public string word;
-        [JsonProperty] public long token;
+        [JsonProperty("W")] public string word;
+        [JsonProperty("T")] public long token;
     }
 }
