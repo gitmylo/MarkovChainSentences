@@ -9,22 +9,25 @@ namespace MarkovChainSentences.Processor
         public static string Generate(ProcessResults inData)
         {
             Random r = new Random();
-            string generated = inData.startWord;
-            var splitList = inData.startWord.Split(' ');
+            string generated = inData.getTokenFromToken(inData.startWord).word;
+            var splitList = generated.Split(' ');
             string word = splitList[splitList.Length-1];
-            while (word != inData.endWord)
+            while (word != inData.getTokenFromToken(inData.endWord).word)
             {
                 var stringBias = StringBias(inData, word);
-                word = stringBias[r.Next(stringBias.Count)];
+                word = inData.getTokenFromToken(stringBias[r.Next(stringBias.Count)]).word;
                 generated += $" {word}";
             }
             return generated;
         }
 
-        public static List<string> StringBias(ProcessResults inData, string word)
+        public static List<long> StringBias(ProcessResults inData, string word)
         {
-            List<string> results = new List<string>();
-            WordLink link = inData.GetLinkFromWord(word.ToLower());
+            List<long> results = new List<long>();
+            WordLink link = inData.GetLinkFromWord(
+                    inData.getTokenFromNameOrCreate(word)
+                        .token
+                );
             if (link != null)
             {
                 foreach (var step in link.possibleSteps)

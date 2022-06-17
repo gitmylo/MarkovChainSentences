@@ -9,16 +9,23 @@ namespace MarkovChainSentences.Processor
         {
             var split = data.Split(' ');
             ProcessResults results = new ProcessResults();
-            results.startWord = split[0];
+            results.startWord = results.getTokenFromNameOrCreate(split[0]).token;
             results.links = new List<WordLink>();
             string last = split[0];
             foreach (var s in split)
             {
                 if (s == last) continue; // no support for that right now
-                results.GetLinkFromWordAndCreate(last.ToLower()).incrementStep(s);
+                results.GetLinkFromWordAndCreate(
+                        results.getTokenFromNameOrCreate(last)
+                            .token
+                        )
+                    .incrementStep(
+                        results.getTokenFromNameOrCreate(s)
+                            .token
+                        );
                 last = s;
             }
-            results.endWord = last;
+            results.endWord = results.getTokenFromNameOrCreate(last).token;
             return results;
         }
     }

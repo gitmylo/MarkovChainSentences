@@ -10,18 +10,37 @@ namespace MarkovChainSentences.Data
     {
         public ProcessResults(){}
         public ProcessResults(List<WordLink> links) => this.links = links;
-        [JsonProperty] public string startWord;
-        [JsonProperty] public string endWord;
+        [JsonProperty] public List<TokenisedWord> words;
+        [JsonProperty] public long startWord;
+        [JsonProperty] public long endWord;
         [JsonProperty] public List<WordLink> links;
 
-        public WordLink GetLinkFromWord(string word)
+        public TokenisedWord getTokenFromNameOrCreate(string word)
+        {
+            words = words ?? new List<TokenisedWord>();
+            word = word.ToLower();
+            var token = words.FirstOrDefault(x => x.word == word);
+            if (token == null)
+            {
+                token = new TokenisedWord(word);
+                words.Add(token);
+            }
+            return token;
+        }
+
+        public TokenisedWord getTokenFromToken(long token)
+        {
+            return words.FirstOrDefault(x => x.token == token);
+        }
+
+        public WordLink GetLinkFromWord(long word)
         {
             var array = links.Where(l => l.source == word).ToArray();
             if (array.Length == 0) return null;
             return array[0];
         }
 
-        public WordLink GetLinkFromWordAndCreate(string word)
+        public WordLink GetLinkFromWordAndCreate(long word)
         {
             var array = links.Where(l => l.source == word).ToArray();
             if (array.Length == 0)

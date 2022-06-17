@@ -22,7 +22,7 @@ namespace MarkovChainSentences
             var results = JsonConvert.DeserializeObject<ProcessResults>(InputBox.Text);
             if (CustomStart.Text != "" && results != null)
             {
-                results.startWord = CustomStart.Text;
+                results.startWord = results.getTokenFromNameOrCreate(CustomStart.Text).token;
             }
             OutputBox.Text = Processor.Generator.Generate(results);
         }
@@ -32,7 +32,7 @@ namespace MarkovChainSentences
             var results = Processor.Processor.Process(InputBox.Text);
             if (CustomStart.Text != "" && results != null)
             {
-                results.startWord = CustomStart.Text;
+                results.startWord = results.getTokenFromNameOrCreate(CustomStart.Text).token;
             }
             OutputBox.Text = Processor.Generator.Generate(results);
         }
