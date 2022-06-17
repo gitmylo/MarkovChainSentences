@@ -11,16 +11,13 @@ namespace MarkovChainSentences
 {
     internal class Program
     {
+        [STAThread]
         public static void Main(string[] args)
         {
             if (args.Length > 0 && args[0].ToLower().Equals("gui"))
             {
                 Gui gui = new Gui();
-                new Thread(() =>
-                {
-                    gui.ShowDialog();
-                }).Start();
-                while (gui.Visible) Console.ReadLine(); // wait until gui is closed before exiting
+                gui.ShowDialog();
             }
             else
             {
