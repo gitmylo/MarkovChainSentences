@@ -5,27 +5,37 @@ namespace MarkovChainSentences.Processor
 {
     public class Processor
     {
-        public static ProcessResults Process(string data)
+        const int ContextDepth = 3;
+        public static ProcessResults Process(string data, int depth = ContextDepth)
         {
             var split = data.Split(' ');
             ProcessResults results = new ProcessResults();
+            results.depth = depth;
             results.startWord = results.getTokenFromNameOrCreate(split[0]).token;
             results.links = new List<WordLink>();
-            string last = split[0];
+            List<long> context = new List<long>();
+            long last = results.getTokenFromNameOrCreate(split[0]).token;
             foreach (var s in split)
             {
-                if (s == last) continue; // no support for that right now
+                long token = results.getTokenFromNameOrCreate(s).token;
+                if (token == last) continue; // no support for that right now
                 results.GetLinkFromWordAndCreate(
-                        results.getTokenFromNameOrCreate(last)
-                            .token
+                        last
                         )
                     .incrementStep(
                         results.getTokenFromNameOrCreate(s)
-                            .token
+                            .token,
+                        //context
+                        context
                         );
-                last = s;
+                context.Add(token);
+                if (context.Count > depth)
+                {
+                    context.RemoveAt(0);
+                }
+                last = token;
             }
-            results.endWord = results.getTokenFromNameOrCreate(last).token;
+            results.endWord = last;
             return results;
         }
     }

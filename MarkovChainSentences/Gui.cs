@@ -35,7 +35,7 @@ namespace MarkovChainSentences
 
         private void button2_Click(object sender, EventArgs e)
         {
-            sendOutput(JsonConvert.SerializeObject(Processor.Processor.Process(getInput())));
+            sendOutput(JsonConvert.SerializeObject(Processor.Processor.Process(getInput(), (int)DepthPicker.Value)));
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace MarkovChainSentences
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var results = Processor.Processor.Process(getInput());
+            var results = Processor.Processor.Process(getInput(), (int)DepthPicker.Value);
             if (CustomStart.Text != "" && results != null)
             {
                 results.startWord = results.getTokenFromNameOrCreate(CustomStart.Text).token;

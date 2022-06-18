@@ -10,6 +10,7 @@ namespace MarkovChainSentences.Data
     {
         public ProcessResults(){}
         public ProcessResults(List<WordLink> links) => this.links = links;
+        [JsonProperty("Depth")] public int depth;
         [JsonProperty("Words")] public List<TokenisedWord> words;
         [JsonProperty("SWord")] public long startWord;
         [JsonProperty("EWord")] public long endWord;
