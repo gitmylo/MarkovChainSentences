@@ -68,14 +68,36 @@ namespace MarkovChainSentences.Processor
             WordLink link = inData.GetLinkFromWordAndCreate(thisWordToken);
             foreach (var chance in link.possibleSteps)
             {
-                var c = (context.Intersect(chance.context).Count()) * 50;
+                //var c = (context.Intersect(chance.context).Count()) * 50;
+                //Match as many tokens as possible in the context, from the end of the context
+                var c = 0;
+                for (int i = 1; i < Math.Min(context.Count, chance.context.Count); i++)
+                {
+                    var ctxItem = context.Count - i;
+                    var dataItem = chance.context.Count - i;
+                    if (ctxItem < 0) break;
+                    if (dataItem < 0) break;
+                    var ctxItemFromContext = chance.context[dataItem];
+                    var ctxItemFromData = context[ctxItem];
+                    if (ctxItemFromContext == ctxItemFromData)
+                    {
+                        if (c == 0)
+                        {
+                            c = 50;
+                        }
+                        else
+                        {
+                            c *= 2;
+                        }
+                    }
+                }
                 if (!results.ContainsKey(chance.word))
                 {
-                    results.Add(chance.word, c);
+                    results.Add(chance.word, c + 1);
                 }
                 else
                 {
-                    results[chance.word] += c;
+                    results[chance.word] += c + 1;
                 }
             }
             List<long> total = new List<long>();

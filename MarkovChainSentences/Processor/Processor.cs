@@ -10,6 +10,7 @@ namespace MarkovChainSentences.Processor
         {
             var split = data.Split(' ');
             ProcessResults results = new ProcessResults();
+            TokenisedWord.newest = 1;
             results.depth = depth;
             results.startWord = results.getTokenFromNameOrCreate(split[0]).token;
             results.links = new List<WordLink>();
@@ -25,8 +26,8 @@ namespace MarkovChainSentences.Processor
                     .incrementStep(
                         results.getTokenFromNameOrCreate(s)
                             .token,
-                        //context
-                        context
+                        //clone context
+                        new List<long>(context)
                         );
                 context.Add(token);
                 if (context.Count > depth)
